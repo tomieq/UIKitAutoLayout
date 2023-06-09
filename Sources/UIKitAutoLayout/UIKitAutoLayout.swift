@@ -1,13 +1,12 @@
-
 import UIKit
 
 public typealias Constraint = ( _ child: UIView, _ parent: UIView) -> NSLayoutConstraint
 
-func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, multiplier: CGFloat = 1.0, constant: CGFloat = 0) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
+public func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, multiplier: CGFloat = 1.0, constant: CGFloat = 0) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
     return equal(keyPath, to: keyPath, multiplier: multiplier, constant: constant)
 }
 
-func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, to: KeyPath<UIView, Anchor>, multiplier: CGFloat = 1.0, constant: CGFloat = 0.0) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
+public func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, to: KeyPath<UIView, Anchor>, multiplier: CGFloat = 1.0, constant: CGFloat = 0.0) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
     return { view, parent in
         
         if let anchor = view[keyPath: keyPath] as? NSLayoutDimension,
@@ -18,7 +17,7 @@ func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, to: KeyPath<UIView
     }
 }
 
-func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, anchor: Anchor, multiplier: CGFloat = 1.0, constant: CGFloat = 0.0) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
+public func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, anchor: Anchor, multiplier: CGFloat = 1.0, constant: CGFloat = 0.0) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
     return { view, parent in
         
         if let selfAnchor = view[keyPath: keyPath] as? NSLayoutDimension,
@@ -29,13 +28,13 @@ func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, anchor: Anchor, mu
     }
 }
 
-func equal<Anchor> (_ keyPath: KeyPath<UIView, Anchor>, equalToConstant: CGFloat = 0.0) -> Constraint where Anchor: NSLayoutDimension {
+public func equal<Anchor> (_ keyPath: KeyPath<UIView, Anchor>, equalToConstant: CGFloat = 0.0) -> Constraint where Anchor: NSLayoutDimension {
     return { view, parent in
         return view[keyPath: keyPath].constraint(equalToConstant: equalToConstant)
     }
 }
 
-func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, toSelf: KeyPath<UIView, Anchor>, multiplier: CGFloat = 1.0, constant: CGFloat = 0.0) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
+public func equal<Axis, Anchor> (_ keyPath: KeyPath<UIView, Anchor>, toSelf: KeyPath<UIView, Anchor>, multiplier: CGFloat = 1.0, constant: CGFloat = 0.0) -> Constraint where Anchor: NSLayoutAnchor<Axis> {
     return { view, _ in
         
         if let anchor = view[keyPath: keyPath] as? NSLayoutDimension,
